@@ -16,7 +16,7 @@ import kotlin.math.*
 
 
 /** A custom implementation of [ResultGlRenderer] to render [HandsResult].  */
-class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
+class HandsResultGlRenderer(private val gestureActionListener: GestureActionListener?) : ResultGlRenderer<HandsResult?> {
     private var program = 0
     private var positionHandle = 0
     private var projectionMatrixHandle = 0
@@ -33,6 +33,18 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
         val deltaX = p2.x - p1.x
         val deltaY = p2.y - p1.y
         return sqrt(deltaX.pow(2) + deltaY.pow(2))
+    }
+
+    // 두 점 사이 기울기 구하기
+    fun slope(p1: LandmarkProto.NormalizedLandmark, p2: LandmarkProto.NormalizedLandmark): Float{
+        val deltaX = p2.x - p1.x
+        val deltaY = p2.y - p1.y
+
+        return if(abs(deltaX)<0.01){
+            10000000000F
+        } else {
+            abs(deltaY/deltaX)
+        }
     }
 
     override fun setupRendering() {
@@ -62,22 +74,13 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
                 if (isLeftHand) LEFT_HAND_CONNECTION_COLOR else RIGHT_HAND_CONNECTION_COLOR
             )
 
-            //내가 추가한거, 손가락 접혔는지 확인
-            /*if(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) {
-                MyGlobals.getInstance().fold = 1;
-                Log.v("gesture: ", "success")
-                Handler(Looper.getMainLooper()).post {
-                    val toast = Toast.makeText(context, "SSSSSSS", Toast.LENGTH_SHORT)
-                    toast.show()
-                    Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
-                }
-
-            }*/
-
             //주먹 쥐기
             if((distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) && (distance(result.multiHandLandmarks()[i].landmarkList[8], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[6], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[12], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[10], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[16], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[14], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[20], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[18], result.multiHandLandmarks()[i].landmarkList[0]))) {
                 MyGlobals.getInstance().fold = 1;
                 Log.v("gesture: ", "rock")
+                //
+                gestureActionListener?.onRockGestureDetected()
+                //
                 Handler(Looper.getMainLooper()).post {
                     val toast = Toast.makeText(context, "rock", Toast.LENGTH_SHORT)
                     toast.show()
@@ -104,6 +107,48 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
                     Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
                 }
             }
+
+            // line created by (Landmark 0 and Landmark 9) - 기울기를 m2
+            // m2의 절댓값이 1보다 크고, Landmard 9가 Landmark 0보다 클 경우 - upward
+            // m2의 절댓값이 1보다 크고, Landmard 9가 Landmark 0보다 작을 경우 - downward
+            // m2의 절댓값이 0과 1 사이, Landmard 9가 Landmark 0보다 클 경우 - right
+            // m2의 절댓값이 0과 1 사이, Landmard 9가 Landmark 0보다 작을 경우 - left
+            // slope의 범위가 1이 아닌 3이면 정확히 위로 뻗는 느낌이 나서 나쁘지 않은듯?
+//            if(slope(result.multiHandLandmarks()[i].landmarkList[0], result.multiHandLandmarks()[i].landmarkList[9]) > 3){
+//                if( result.multiHandLandmarks()[i].landmarkList[9].y > result.multiHandLandmarks()[i].landmarkList[0].y){
+//                    Handler(Looper.getMainLooper()).post {
+//                        val toast = Toast.makeText(context, "Down", Toast.LENGTH_SHORT)
+//                        Log.v("gesture: ", "Down")
+//                        toast.show()
+//                        Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 500)
+//                    }
+//                } else{
+//                    Handler(Looper.getMainLooper()).post {
+//                        val toast = Toast.makeText(context, "Up", Toast.LENGTH_SHORT)
+//                        toast.show()
+//                        Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 500)
+//                    }
+//                }
+//            }
+//            else if (
+//                (slope(result.multiHandLandmarks()[i].landmarkList[0], result.multiHandLandmarks()[i].landmarkList[9]) < 3) && (slope(result.multiHandLandmarks()[i].landmarkList[0], result.multiHandLandmarks()[i].landmarkList[9]) > 0)
+//            )
+//            {
+//                if (result.multiHandLandmarks()[i].landmarkList[9].x > result.multiHandLandmarks()[i].landmarkList[0].x){
+//                    Handler(Looper.getMainLooper()).post {
+//                        val toast = Toast.makeText(context, "Right", Toast.LENGTH_SHORT)
+//                        toast.show()
+//                        Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 500)
+//                    }
+//                } else {
+//                    Handler(Looper.getMainLooper()).post {
+//                        val toast = Toast.makeText(context, "left", Toast.LENGTH_SHORT)
+//                        toast.show()
+//                        Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 500)
+//                    }
+//                }
+//            }
+
 
             for(ind in result.multiHandLandmarks()[i].landmarkList.indices) {
                 val lm = result.multiHandLandmarks()[i].landmarkList[ind]

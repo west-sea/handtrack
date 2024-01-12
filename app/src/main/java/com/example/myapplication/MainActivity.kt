@@ -1,27 +1,31 @@
 package com.example.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.google.mediapipe.solutioncore.CameraInput
 import com.google.mediapipe.solutioncore.SolutionGlSurfaceView
 import com.google.mediapipe.solutions.hands.Hands
-import com.gun0912.tedpermission.PermissionListener
 import com.google.mediapipe.solutions.hands.HandsOptions
 import com.google.mediapipe.solutions.hands.HandsResult
-import com.example.myapplication.HandsResultGlRenderer
-import com.google.mediapipe.formats.proto.LandmarkProto
-import com.gun0912.tedpermission.normal.TedPermission
 
 
+interface GestureActionListener {
+    fun onRockGestureDetected()
+}
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GestureActionListener {
+    //
+    private var isNextActivityLaunched = false
+    //
+
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var hands : Hands
     private lateinit var cameraInput: CameraInput
@@ -51,6 +55,21 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
         }
     }
+
+    //
+    override fun onRockGestureDetected() {
+        if(!isNextActivityLaunched){
+            isNextActivityLaunched = true
+            goToNextActivity()
+        }
+    }
+    //
+    override fun onResume(){
+        super.onResume()
+        isNextActivityLaunched = false
+    }
+
+
 
     // Handle permission request result
     override fun onRequestPermissionsResult(
@@ -91,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
         glSurfaceView = SolutionGlSurfaceView(this@MainActivity, hands.glContext,
             hands.glMajorVersion)
-        glSurfaceView.setSolutionResultRenderer(HandsResultGlRenderer())
+        glSurfaceView.setSolutionResultRenderer(HandsResultGlRenderer(this))
         glSurfaceView.setRenderInputImage(true)
 
         hands.setResultListener {
@@ -101,8 +120,10 @@ class MainActivity : AppCompatActivity() {
 
         glSurfaceView.post(this::startCamera)
 
+        glSurfaceView.setSolutionResultRenderer(HandsResultGlRenderer(this))
 
         //binding 문제 때문에 추가
+
         //var binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(binding.root)
 
@@ -123,5 +144,12 @@ class MainActivity : AppCompatActivity() {
             glSurfaceView.width,
             glSurfaceView.height
         )
+    }
+
+
+    private fun goToNextActivity(){
+        val intent = Intent(this@MainActivity, NextActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

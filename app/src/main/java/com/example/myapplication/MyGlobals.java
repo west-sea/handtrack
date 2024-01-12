@@ -19,7 +19,7 @@ public class MyGlobals {
 
     public void setFold(Integer fold) {
         this.fold = fold;
-        Log.d("MyGlobals", "Name set to: " + fold);
+        Log.d("MyGlobals", "fold set to: " + fold);
     }
 
     public String getNickname() {
