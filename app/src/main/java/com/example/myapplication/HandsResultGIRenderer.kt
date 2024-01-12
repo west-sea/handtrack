@@ -63,16 +63,46 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
             )
 
             //내가 추가한거, 손가락 접혔는지 확인
-            if(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) {
+            /*if(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) {
                 MyGlobals.getInstance().fold = 1;
                 Log.v("gesture: ", "success")
-                Handler(Looper.getMainLooper()).post(Runnable {
-                    Toast.makeText(
-                        context,
-                        "SSSSSSS",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                })
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(context, "SSSSSSS", Toast.LENGTH_SHORT)
+                    toast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
+                }
+
+            }*/
+
+            //주먹 쥐기
+            if((distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) && (distance(result.multiHandLandmarks()[i].landmarkList[8], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[6], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[12], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[10], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[16], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[14], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[20], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[18], result.multiHandLandmarks()[i].landmarkList[0]))) {
+                MyGlobals.getInstance().fold = 1;
+                Log.v("gesture: ", "rock")
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(context, "rock", Toast.LENGTH_SHORT)
+                    toast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
+                }
+            }
+            //펴기
+            if(!(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) && !(distance(result.multiHandLandmarks()[i].landmarkList[8], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[6], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[12], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[10], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[16], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[14], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[20], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[18], result.multiHandLandmarks()[i].landmarkList[0]))) {
+                MyGlobals.getInstance().fold = 1;
+                Log.v("gesture: ", "paper")
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(context, "paper", Toast.LENGTH_SHORT)
+                    toast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
+                }
+            }
+            //가위
+            if((distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) && !(distance(result.multiHandLandmarks()[i].landmarkList[8], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[6], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[12], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[10], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[16], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[14], result.multiHandLandmarks()[i].landmarkList[0])) && (distance(result.multiHandLandmarks()[i].landmarkList[20], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[18], result.multiHandLandmarks()[i].landmarkList[0]))) {
+                MyGlobals.getInstance().fold = 1;
+                Log.v("gesture: ", "scissor")
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(context, "scissor", Toast.LENGTH_SHORT)
+                    toast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
+                }
             }
 
             for(ind in result.multiHandLandmarks()[i].landmarkList.indices) {
