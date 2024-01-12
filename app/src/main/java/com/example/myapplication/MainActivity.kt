@@ -16,7 +16,10 @@ import com.gun0912.tedpermission.PermissionListener
 import com.google.mediapipe.solutions.hands.HandsOptions
 import com.google.mediapipe.solutions.hands.HandsResult
 import com.example.myapplication.HandsResultGlRenderer
+import com.google.mediapipe.formats.proto.LandmarkProto
 import com.gun0912.tedpermission.normal.TedPermission
+
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

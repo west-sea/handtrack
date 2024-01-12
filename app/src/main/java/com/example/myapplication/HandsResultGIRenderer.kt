@@ -1,13 +1,19 @@
 package com.example.myapplication
 
 import android.opengl.GLES20
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import com.google.mediapipe.formats.proto.LandmarkProto
 import com.google.mediapipe.solutioncore.ResultGlRenderer
 import com.google.mediapipe.solutions.hands.Hands
 import com.google.mediapipe.solutions.hands.HandsResult
+import com.gun0912.tedpermission.provider.TedPermissionProvider.context
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import kotlin.math.*
+
 
 /** A custom implementation of [ResultGlRenderer] to render [HandsResult].  */
 class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
@@ -20,6 +26,13 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
         GLES20.glShaderSource(shader, shaderCode)
         GLES20.glCompileShader(shader)
         return shader
+    }
+
+    //두 점 사이 거리 구하기
+    fun distance(p1: LandmarkProto.NormalizedLandmark, p2: LandmarkProto.NormalizedLandmark): Float {
+        val deltaX = p2.x - p1.x
+        val deltaY = p2.y - p1.y
+        return sqrt(deltaX.pow(2) + deltaY.pow(2))
     }
 
     override fun setupRendering() {
@@ -48,10 +61,27 @@ class HandsResultGlRenderer : ResultGlRenderer<HandsResult?> {
                 result.multiHandLandmarks()[i].landmarkList,
                 if (isLeftHand) LEFT_HAND_CONNECTION_COLOR else RIGHT_HAND_CONNECTION_COLOR
             )
+
+            //내가 추가한거, 손가락 접혔는지 확인
+            if(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) {
+                MyGlobals.getInstance().fold = 1;
+                Log.v("gesture: ", "success")
+                Handler(Looper.getMainLooper()).post(Runnable {
+                    Toast.makeText(
+                        context,
+                        "SSSSSSS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                })
+            }
+
             for(ind in result.multiHandLandmarks()[i].landmarkList.indices) {
                 val lm = result.multiHandLandmarks()[i].landmarkList[ind]
                 Log.d(TAG, "LandMark[$ind] | x : ${lm.x}, y : ${lm.y}, z : ${lm.z}")
             }
+
+
+
             for (landmark in result.multiHandLandmarks()[i].landmarkList) {
                 // Draws the landmark.
                 drawCircle(
