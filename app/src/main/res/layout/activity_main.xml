@@ -4,15 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".MainActivity">
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="76dp"
+        android:layout_height="28dp"
+        android:text="score:"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/nextDraw"
+        app:layout_constraintTop_toTopOf="@+id/Draw" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/gameOverText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-5dp"
+        android:text=""
+        android:textColor="#f00"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/resetButton"
+        app:layout_constraintEnd_toEndOf="@+id/resetButton" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="187dp"
+        android:layout_marginEnd="97dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/Draw"
+        app:layout_constraintTop_toTopOf="@+id/Draw" />
+
+    <com.example.myapplication.nextDraw
+        android:id="@+id/nextDraw"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/hold"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/downButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="down"
+        app:layout_constraintEnd_toStartOf="@+id/holdButton"
+        app:layout_constraintStart_toStartOf="@+id/righttButton"
+        app:layout_constraintTop_toBottomOf="@+id/righttButton" />
+
+    <Button
+        android:id="@+id/righttButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Right"
+        app:layout_constraintEnd_toStartOf="@+id/holdButton"
+        app:layout_constraintTop_toBottomOf="@+id/Draw" />
+
+    <Button
+        android:id="@+id/leftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="left"
+        app:layout_constraintBottom_toTopOf="@+id/downButton"
+        app:layout_constraintEnd_toStartOf="@+id/righttButton"
+        app:layout_constraintStart_toStartOf="@+id/rotateButton"
+        app:layout_constraintTop_toBottomOf="@+id/Draw" />
+
+    <Button
+        android:id="@+id/rotateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="Roteta"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/downButton"
+        app:layout_constraintTop_toBottomOf="@+id/leftButton" />
+
+    <com.example.myapplication.Draw
+        android:id="@+id/Draw"
+        android:layout_width="282dp"
+        android:layout_height="424dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-50dp"
+        app:layout_constraintEnd_toStartOf="@+id/resetButton"
+        app:layout_constraintTop_toBottomOf="@+id/highScoreLabel" />
+
+    <TextView
+        android:id="@+id/highScoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/resetButton"
+        app:layout_constraintTop_toBottomOf="@+id/resetButton" />
+
+    <Button
+        android:id="@+id/holdButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hold"
+        app:layout_constraintBottom_toBottomOf="@+id/downButton"
+        app:layout_constraintEnd_toEndOf="@+id/Draw"
+        app:layout_constraintTop_toTopOf="@+id/righttButton"
+        app:layout_constraintVertical_bias="0.52" />
+
+    <com.example.myapplication.hold
+        android:id="@+id/hold"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/Draw"
+        app:layout_constraintTop_toBottomOf="@+id/nextDraw" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/hold"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/hold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOLD"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextDraw"
+        app:layout_constraintStart_toStartOf="@+id/nextDraw" />
+
     <FrameLayout
-        android:id="@+id/preview_display_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:id="@+id/preview_display_layout2"
+        app:layout_constraintStart_toEndOf="@id/Draw"
+        android:layout_width="80dp"
+        android:layout_height="100dp">
     </FrameLayout>
 
 
