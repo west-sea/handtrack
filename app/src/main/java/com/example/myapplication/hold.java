@@ -30,16 +30,16 @@ public class hold extends View {
         super(context, attrs);
     }
 
-    @Override
-    protected void onDraw(Canvas ca) {
-        super.onDraw(ca);
-        if (NextActivity.holdButtonclick) {
-            holdfun();
-            NextActivity.holdButtonclick = false;
-        }
-        holdDraw(ca);
-
-    }
+//    @Override
+//    protected void onDraw(Canvas ca) {
+//        super.onDraw(ca);
+//        if (NextActivity.holdButtonclick) {
+//            holdfun();
+//            NextActivity.holdButtonclick = false;
+//        }
+//        holdDraw(ca);
+//
+//    }
 
     //ホールド処理
     public void holdfun() {
