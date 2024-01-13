@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.FaceMesh.FaceMeshActivity
 import com.example.myapplication.databinding.ActivityNextBinding
 import com.example.myapplication.MainActivity
 import com.google.mediapipe.solutioncore.CameraInput
@@ -23,6 +24,8 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
 
     // 변수 선언
     private var isNextActivityLaunched = false
+    private var isFaceActivityLaunched = false
+
     private lateinit var binding: ActivityNextBinding
     private lateinit var hands : Hands
     private lateinit var cameraInput: CameraInput
@@ -59,14 +62,10 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     override fun onRightGesture() {
-        if (isLeftGestureDetected) { // Left 제스처가 먼저 감지되었는지 확인
-            runOnUiThread {
-                binding.gesture.text = "ROCK"
-            }
-            // Right 제스처가 감지되면, Rock 제스처를 기다리도록 설정
-            isRightGestureDetected = true
+        if(!isFaceActivityLaunched){
+            isFaceActivityLaunched = true
+            goToFaceActivity()
         }
-
     }
 
     override fun onLeftGesture() {
@@ -154,6 +153,11 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
 
     private fun goToNextActivity(){
         val intent = Intent(this@NextActivity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToFaceActivity(){
+        val intent = Intent(this@NextActivity, FaceMeshActivity::class.java)
         startActivity(intent)
     }
 

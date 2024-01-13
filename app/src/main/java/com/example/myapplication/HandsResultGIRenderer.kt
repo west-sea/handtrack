@@ -21,13 +21,17 @@ import com.example.myapplication.GestureActionListener
 //class HandsResultGlRenderer(private val gestureActionListener: GestureActionListener?) : ResultGlRenderer<HandsResult?> {
 class HandsResultGlRenderer(private val gestureActionListener: GestureActionListener) : ResultGlRenderer<HandsResult?> {
 
+    // 시간 인식 조절
     private var lastExecutionTime = 0L
-    private val throttleInterval = 1000L // 인식 시간 조절
+    private val throttleInterval = 700L
 
+    // 변수 설정
     private var program = 0
     private var positionHandle = 0
     private var projectionMatrixHandle = 0
     private var colorHandle = 0
+
+    // Loading and compiling OpenGL shader programs
     private fun loadShader(type: Int, shaderCode: String): Int {
         val shader = GLES20.glCreateShader(type)
         GLES20.glShaderSource(shader, shaderCode)
@@ -35,14 +39,14 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
         return shader
     }
 
-    //두 점 사이 거리 구하기
+    //HandLandmarks: 두 점 사이 거리 구하기
     fun distance(p1: LandmarkProto.NormalizedLandmark, p2: LandmarkProto.NormalizedLandmark): Float {
         val deltaX = p2.x - p1.x
         val deltaY = p2.y - p1.y
         return sqrt(deltaX.pow(2) + deltaY.pow(2))
     }
 
-    // 두 점 사이 기울기 구하기
+    //HandLandmarks: 두 점 사이 기울기 구하기
     fun slope(p1: LandmarkProto.NormalizedLandmark, p2: LandmarkProto.NormalizedLandmark): Float{
         val deltaX = p2.x - p1.x
         val deltaY = p2.y - p1.y
@@ -54,6 +58,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
         }
     }
 
+    // Rendering Setup
     override fun setupRendering() {
         program = GLES20.glCreateProgram()
         val vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, VERTEX_SHADER)
@@ -66,23 +71,30 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
         colorHandle = GLES20.glGetUniformLocation(program, "uColor")
     }
 
+    // Rendering Result
     override fun renderResult(result: HandsResult?, projectionMatrix: FloatArray) {
+        // 랜더링 결과 시간 주기
         val currentTime = System.currentTimeMillis()
         if(currentTime - lastExecutionTime < throttleInterval){
             return
         }
         lastExecutionTime = currentTime
 
+        // 기본값 null 설정
         if (result == null) {
             return
         }
+
+        // 도형 그리기
         GLES20.glUseProgram(program)
         GLES20.glUniformMatrix4fv(projectionMatrixHandle, 1, false, projectionMatrix, 0)
         GLES20.glLineWidth(CONNECTION_THICKNESS)
 
         val numHands = result.multiHandLandmarks().size
 
+        // 손 인식되면, for문 실행
         for (i in 0 until numHands) {
+            // 좌-우 손 인식
             val isLeftHand = result.multiHandedness()[i].label == "Left"
             drawConnections(
                 result.multiHandLandmarks()[i].landmarkList,
@@ -102,7 +114,6 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
                 }
                 gestureActionListener.onRockGesture();
             }
-
 
             //펴기
             else if(!(distance(result.multiHandLandmarks()[i].landmarkList[4], result.multiHandLandmarks()[i].landmarkList[9]) < distance(result.multiHandLandmarks()[i].landmarkList[3], result.multiHandLandmarks()[i].landmarkList[9])) && !(distance(result.multiHandLandmarks()[i].landmarkList[8], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[6], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[12], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[10], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[16], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[14], result.multiHandLandmarks()[i].landmarkList[0])) && !(distance(result.multiHandLandmarks()[i].landmarkList[20], result.multiHandLandmarks()[i].landmarkList[0]) < distance(result.multiHandLandmarks()[i].landmarkList[18], result.multiHandLandmarks()[i].landmarkList[0]))) {
@@ -163,14 +174,13 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
                 }
             }
 
-
+            // 각 HandLandmarks x, y, z 좌표 로그 표시
             for(ind in result.multiHandLandmarks()[i].landmarkList.indices) {
                 val lm = result.multiHandLandmarks()[i].landmarkList[ind]
                 Log.d(TAG, "LandMark[$ind] | x : ${lm.x}, y : ${lm.y}, z : ${lm.z}")
             }
 
-
-
+            // 각 point에 대한 circle 그림 그리기
             for (landmark in result.multiHandLandmarks()[i].landmarkList) {
                 // Draws the landmark.
                 drawCircle(
