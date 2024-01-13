@@ -18,6 +18,9 @@ import com.google.mediapipe.solutions.hands.HandsOptions
 import com.google.mediapipe.solutions.hands.HandsResult
 
 class NextActivity : AppCompatActivity(), GestureActionListener {
+    //튜토리얼 상태 변수 추가
+    private var isLeftGestureDetected = false
+    private var isRightGestureDetected = false
 
     // 변수 선언
     private var isNextActivityLaunched = false
@@ -50,9 +53,11 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     override fun onRockGesture() {
-        if(!isNextActivityLaunched){
-            isNextActivityLaunched = true
-            goToNextActivity()
+        if (isRightGestureDetected) { // Right 제스처가 먼저 감지되었는지 확인
+            if (!isNextActivityLaunched) {
+                isNextActivityLaunched = true
+                goToNextActivity()
+            }
         }
     }
 
@@ -64,6 +69,10 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     override fun onLeftGesture() {
+        runOnUiThread {
+            binding.gesture.text = "RIGHT"
+        }
+        isLeftGestureDetected = true
     }
 
     override fun onResume(){
