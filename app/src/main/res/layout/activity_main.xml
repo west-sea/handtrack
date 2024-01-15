@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    
+    <Button
+        android:id="@+id/pauseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PAUSE"
+        app:layout_constraintTop_toBottomOf="@+id/holdButton"
+        app:layout_constraintRight_toRightOf="@+id/holdButton"
+        app:layout_constraintBottom_toBottomOf="@+id/downButton"/>
 
     <TextView
         android:id="@+id/textView"
@@ -124,8 +132,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/downButton"
         app:layout_constraintEnd_toEndOf="@+id/Draw"
         app:layout_constraintTop_toTopOf="@+id/righttButton"
-        app:layout_constraintVertical_bias="0.52" />
-
+        app:layout_constraintVertical_bias="0.0" />
+    
     <com.example.myapplication.hold
         android:id="@+id/hold"
         android:layout_width="81dp"

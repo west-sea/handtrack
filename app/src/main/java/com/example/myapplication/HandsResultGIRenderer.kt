@@ -23,7 +23,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
 
     // 시간 인식 조절
     private var lastExecutionTime = 0L
-    private val throttleInterval = 700L
+    private val throttleInterval = 500L
 
     // 변수 설정
     private var program = 0
@@ -134,6 +134,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
                     toast.show()
                     Handler(Looper.getMainLooper()).postDelayed({ toast.cancel() }, 1000)
                 }
+                gestureActionListener.onScissorGesture();
             }
 
             else if(slope(result.multiHandLandmarks()[i].landmarkList[0], result.multiHandLandmarks()[i].landmarkList[9]) > 3){
