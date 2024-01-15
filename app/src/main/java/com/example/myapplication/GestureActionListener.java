@@ -7,4 +7,6 @@ public interface GestureActionListener {
     void onRightGesture();
 
     void onLeftGesture();
+
+    void onScissorGesture();
 }

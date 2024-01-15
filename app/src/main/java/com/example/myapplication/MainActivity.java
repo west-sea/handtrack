@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.Draw.Down;
 import static com.example.myapplication.Draw.score;
 
 import android.content.SharedPreferences;
@@ -28,6 +29,9 @@ import com.google.mediapipe.solutions.hands.HandsResult;
 
 public class MainActivity extends AppCompatActivity implements GestureActionListener {
 
+    //
+    private boolean isGamePaused = false;
+    //
     Button resetButton;
     Handler handler = new Handler();
     public static boolean startFlag = true;
@@ -61,10 +65,8 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // 테트리스 초기화
         initTetrisComponents();
-
         // 핸드 트래킹 초기화
         initHandTracking();
     }
@@ -103,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         Button holdButton = findViewById(R.id.holdButton);
         setHoldButtonFunction(holdButton);
 
+        // 멈춤 버튼
+        Button pauseButton = findViewById(R.id.pauseButton);
+
         scoreLabel = findViewById(R.id.scoreLabel);
         highScoreLabel = findViewById(R.id.highScoreLabel);
         sp = getSharedPreferences("GAME_DATA", MODE_PRIVATE);
@@ -138,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     @Override
     public void onRockGesture() {performRotateAction();}
 
+    @Override
+    public void onScissorGesture() {performDownAction();}
+
     private void performRightAction() {
         // Code to perform the right action
         dw.showfield(Draw.Right);
@@ -149,7 +157,13 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     }
 
     private void performRotateAction(){
+
         dw.showfield(Draw.rotate);
+    }
+
+    private void performDownAction(){
+        dw.showfield(Down);
+        Log.d("Down", "Down");
     }
 
     @Override
@@ -225,9 +239,6 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     }
 
 
-
-
-
     //移動機能定義メソッド
     void setButtonFunction(Button button, final int motion) {
         button.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
                 public void run() {
 
                     //一定周期の落下
-                    dw.showfield(Draw.Down);
+                    dw.showfield(Down);
                     handler.postDelayed(this, 1000);
 
                     //スコアの表示
