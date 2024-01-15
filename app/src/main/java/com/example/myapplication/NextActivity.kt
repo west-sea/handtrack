@@ -157,7 +157,7 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     private fun goToNextActivity(){
-        val intent = Intent(this@NextActivity, MainActivity::class.java)
+        val intent = Intent(this@NextActivity, InfoActivity::class.java)
         startActivity(intent)
     }
 
