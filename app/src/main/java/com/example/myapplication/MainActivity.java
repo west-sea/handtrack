@@ -87,26 +87,9 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
 
         blocks.randomNumber();
 
-        Button leftButton = findViewById(R.id.leftButton);
-        setButtonFunction(leftButton, Draw.Left);
-
-        Button rightButton = findViewById(R.id.righttButton);
-        setButtonFunction(rightButton, Draw.Right);
-
-        Button rotateButton = findViewById(R.id.rotateButton);
-        setButtonFunction(rotateButton, Draw.rotate);
-
-        Button downButton = findViewById(R.id.downButton);
-        setDownButtonFunction(downButton);
-
         resetButton = findViewById(R.id.resetButton);
         setresetButton(resetButton);
 
-        Button holdButton = findViewById(R.id.holdButton);
-        setHoldButtonFunction(holdButton);
-
-        // 멈춤 버튼
-        Button pauseButton = findViewById(R.id.pauseButton);
 
         scoreLabel = findViewById(R.id.scoreLabel);
         highScoreLabel = findViewById(R.id.highScoreLabel);
