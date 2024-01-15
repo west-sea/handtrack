@@ -56,6 +56,7 @@ dependencies {
     implementation ("com.google.mediapipe:solution-core:latest.release")
     implementation ("com.google.mediapipe:hands:latest.release")
     implementation ("com.google.mediapipe:facemesh:latest.release")
+    implementation ("com.airbnb.android:lottie:5.0.2") // 로티 애니메이션
 
     implementation ("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
 }

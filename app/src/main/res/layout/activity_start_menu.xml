@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/jalnan"
         android:gravity="center"
-        android:text="HIMOVIE"
+        android:text="KINETIC\nPLAYGROUND"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/jalnan"
         android:gravity="center"
-        android:text="welcome"
+        android:text=" "
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,10 +57,10 @@
         <Button
             android:id ="@+id/Tutorial_btn"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/layout_startmenubutton"
+            android:background="@drawable/button2"
             android:fontFamily="@font/jalnan"
             android:text="Tutorial"
             android:textColor="@color/black" />
@@ -68,10 +68,10 @@
         <Button
             android:id ="@+id/Tetris_btn"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/layout_startmenubutton"
+            android:background="@drawable/button2"
             android:fontFamily="@font/jalnan"
             android:text="Tetris"
             android:textColor="@color/black" />
@@ -79,10 +79,10 @@
         <Button
             android:id ="@+id/FaceMesh_btn"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/layout_startmenubutton"
+            android:background="@drawable/button2"
             android:fontFamily="@font/jalnan"
             android:text="Face Mesh"
             android:textColor="@color/black" />
