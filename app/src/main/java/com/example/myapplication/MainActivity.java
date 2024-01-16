@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,8 @@ import com.google.mediapipe.solutions.hands.HandsResult;
 public class MainActivity extends AppCompatActivity implements GestureActionListener {
 
     //
-    private boolean isGamePaused = false;
+    private TextView commandText;
+    private ImageView commandImage;
     //
     Button resetButton;
     Handler handler = new Handler();
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        commandText = findViewById(R.id.textViewcommand);
+        commandImage = findViewById(R.id.commandImage);
         // 테트리스 초기화
         initTetrisComponents();
         // 핸드 트래킹 초기화
@@ -139,21 +143,47 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     private void performRightAction() {
         // Code to perform the right action
         dw.showfield(Draw.Right);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                commandText.setText("Right");
+                commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_right_24);
+            }
+        });
     }
 
     private void performLeftAction() {
         // Code to perform the left action
         dw.showfield(Draw.Left);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                commandText.setText("Left");
+                commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_left_24);
+            }
+        });
     }
 
     private void performRotateAction() {
-
         dw.showfield(Draw.rotate);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                commandText.setText("Rotate");
+                commandImage.setImageResource(R.drawable.baseline_rotate_right_24);
+            }
+        });
     }
 
     private void performDownAction() {
         dw.showfield(Down);
-        Log.d("Down", "Down");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                commandText.setText("Down");
+                commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_down_24);
+            }
+        });
     }
 
     @Override
