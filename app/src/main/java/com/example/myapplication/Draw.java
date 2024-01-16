@@ -16,6 +16,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class Draw extends View {
@@ -65,35 +66,36 @@ public class Draw extends View {
         super.onDraw(ca);
 
         randomNumber();
-        //ブロックが固定された後の処理
+
+        //블록이 선택된 후, 처리방식
         if (!moveflag) {
             initstartpoi();
             bs.setNowBlock();
         }
         if (!gameOverFlag) {
             switch (motion) {
-                //右移動の処理
+                //오른쪽 이동
                 case Right:
                     if (canMove(1, 0, nowBlock)) {
                         offsetx = offsetx + 1;
                     }
                     break;
 
-                //左移動の処理
+                //왼쪽 이동
                 case Left:
                     if (canMove(-1, 0, nowBlock)) {
                         offsetx = offsetx - 1;
                     }
                     break;
 
-                //回転移動の処理
+                //회전 처리
                 case rotate:
-                    if (canMove(0, 0, nowBlock)) {
+                    if (canRotate(0, 0, nowBlock)) {
                         bs.roteta();
                     }
                     break;
 
-                //一定時間の落下処理
+                //아래쪽 이동
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
@@ -112,13 +114,13 @@ public class Draw extends View {
         }
     }
 
-    //回転や左右などの動きの取得
+    //회전 or 좌우 움직임 취득
     public void showfield(int motion) {
         invalidate();
         this.motion = motion;
     }
 
-    //リセット処理
+    //reset 처리
     public void reset() {
         gameOverFlag = false;
         score = 0;
@@ -127,7 +129,7 @@ public class Draw extends View {
         resetfield();
     }
 
-    //フィールドリセット処理
+    // field reset 처리
     public void resetfield() {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
@@ -137,7 +139,7 @@ public class Draw extends View {
     }
 
 
-    //ブロックの描画処理
+    //블록 그리기 처리
     public void blockDraw(Canvas ca) {
 
 
@@ -192,7 +194,7 @@ public class Draw extends View {
                 ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
             }
         }
-        //動いてるブロックの描画処理
+        //움직이는 블록의 그리기 처리
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
                 if (blocks.nowBlock[i][j] == 1) {
@@ -204,7 +206,7 @@ public class Draw extends View {
     }
 
 
-    //動いているブロックの描画処理
+    //움직이는 블록 그리기 처리
     public void drawMoveBlock(int x, int y, Canvas ca) {
 
         Paint p1 = new Paint();
@@ -262,13 +264,47 @@ public class Draw extends View {
         }
     }
 
-    //ブロックの出現位置定義（offset初期化）
+    //블록 출현 위치 정의 (offset 초기화)
     public static void initstartpoi() {
         offsetx = xmax / 2 - blockLenght / 2;
         offsety = 0;
     }
 
-    //移動可能かを確認する処理
+    //회전 가능하지 확인하는 처리
+
+    public int[][] getRotatedBlock(int[][] currentBlock){
+        int[][] rotatedBlock = new int[blockLenght][blockLenght];
+        for(int i=0 ; i<blockLenght; i++){
+            for(int j=0; j<blockLenght; j++){
+                rotatedBlock[i][j] = currentBlock[blockLenght - j -1][i];
+            }
+        }
+        return rotatedBlock;
+    }
+
+    public boolean canRotate(int dx, int dy, int[][] currentBlock){
+        int[][] rotatedBlock = getRotatedBlock(currentBlock);
+        for(int i = 0; i < blockLenght; i++){
+            for(int j = 0; j < blockLenght; j++){
+                if(rotatedBlock[i][j] != 0){
+                    int nx = offsetx + j;
+                    int ny = offsety + i;
+                    if(nx<0 || nx >= xmax || ny<0 || ny >= ymax){
+                        Log.d("범위 밖", "범위 밖");
+                        return false;
+                    }
+                    if(field[nx][ny] != 0){
+                        Log.d("뭐지", "뭐지");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
+    //이동 가능한지 확인하는 처리 --- then 회전 가능한지 확인하는 처리???
     public boolean canMove(int dx, int dy, int[][] nowBlock) {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
@@ -324,7 +360,7 @@ public class Draw extends View {
     }
 
 
-    //ブロックの固定処理（nowblockからfieldに置き換える）
+    //블록 고정 처리 (nowblock에서 field로 대체)
     public void blockFixt() {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
@@ -371,7 +407,7 @@ public class Draw extends View {
         moveflag = false;
     }
 
-    //列の削除の処理
+    //열의 삭제 처리
     public void clearLine(int row) {
         for (int j = 0; j < xmax; j++) {
             field[row][j] = 0;
@@ -386,7 +422,7 @@ public class Draw extends View {
         }
     }
 
-    //fieldで列を確認、削除する処理
+    //field에서 열을 확인, 삭제하는 처리
     public void checkfield() {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
@@ -406,7 +442,7 @@ public class Draw extends View {
         }
     }
 
-    //ゴースト（落下予測）
+    //ghost 낙하예측
     public int getGhosty() {
         ghosty = 0;
         while (ghostCanMove(0, 1, nowBlock)) {
@@ -415,7 +451,7 @@ public class Draw extends View {
         return ghosty;
     }
 
-    //ゴースト描写
+    //고스트 묘사
     public void ghostDraw(int x, int y, Canvas ca) {
         Paint p1 = new Paint();
         p1.setColor(Color.WHITE);

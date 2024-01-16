@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +15,9 @@ import com.example.myapplication.R;
 public class TetrisRuleActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
+    private View linearLayout;
+    private boolean isImage1 = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,27 @@ public class TetrisRuleActivity extends AppCompatActivity {
 
         // StartMenu에서 받아왔는지 확인
         String StartMenu = getIntent().getStringExtra("tossFromStartMenu");
+
+        //이미지 깜박이기
+        linearLayout = findViewById(R.id.info);
+
+        // 일정 시간마다 배경 이미지 변경
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isImage1) {
+                    linearLayout.setBackgroundResource(R.drawable.info4);
+                } else {
+                    linearLayout.setBackgroundResource(R.drawable.info3);
+                }
+                isImage1 = !isImage1;
+
+                // 반복 호출 (원하는 시간으로 변경 가능)
+                handler.postDelayed(this, 100);
+            }
+        }, 500);
+
 
         if(StartMenu != null && StartMenu.equals("FromStartMenu")){
 

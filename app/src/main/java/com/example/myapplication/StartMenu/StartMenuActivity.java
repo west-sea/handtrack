@@ -31,26 +31,26 @@ public class StartMenuActivity extends AppCompatActivity {
         tutorial_Btn = findViewById(R.id.Tutorial_btn);
         tetris_Btn = findViewById(R.id.Tetris_btn);
         facemesh_Btn = findViewById(R.id.FaceMesh_btn);
-        tetris_HTP_Btn = findViewById(R.id.Tetris_HTP_btn);
-        facemesh_HTP_Btn = findViewById(R.id.FaceMesh_HTP_btn);
+//        tetris_HTP_Btn = findViewById(R.id.Tetris_HTP_btn);
+//        facemesh_HTP_Btn = findViewById(R.id.FaceMesh_HTP_btn);
 
-        tetris_HTP_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartMenuActivity.this, TetrisRuleActivity.class);
-                // 시작화면에서 넘겨받았는지 확인
-                intent.putExtra("tossFromStartMenu", "FromStartMenu");
-                startActivity(intent);
-            }
-        });
-
-        facemesh_HTP_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartMenuActivity.this, FaceMeshActivity.class);
-                startActivity(intent);
-            }
-        });
+//        tetris_HTP_Btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StartMenuActivity.this, TetrisRuleActivity.class);
+//                // 시작화면에서 넘겨받았는지 확인
+//                intent.putExtra("tossFromStartMenu", "FromStartMenu");
+//                startActivity(intent);
+//            }
+//        });
+//
+//        facemesh_HTP_Btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StartMenuActivity.this, FaceMeshActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         tutorial_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
