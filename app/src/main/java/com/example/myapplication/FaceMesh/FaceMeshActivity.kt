@@ -169,7 +169,7 @@ class FaceMeshActivity : AppCompatActivity() {
         ballView.bringToFront()
 
         val topImageView: ImageView = findViewById(R.id.topImageView)
-        topImageView.setImageResource(R.drawable.faceback)
+        topImageView.setImageResource(R.drawable.faceback2)
         topImageView.visibility = View.VISIBLE
         topImageView.bringToFront()
 
