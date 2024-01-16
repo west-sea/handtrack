@@ -13,7 +13,7 @@ class SplashActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         val animationView = findViewById<LottieAnimationView>(R.id.animationView)
-        animationView.setAnimation("startgrid.json")
+        animationView.setAnimation("splash.json")
         animationView.loop(true)
         animationView.playAnimation()
         Handler().postDelayed({ // Start MainActivity after the splash duration
