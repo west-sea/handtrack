@@ -44,11 +44,11 @@
             android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/button2"
+            android:background="@color/black"
             android:fontFamily="@font/pixel"
             android:textSize="20dp"
             android:text="Tutorial"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
             android:id ="@+id/Tetris_btn"
@@ -56,11 +56,11 @@
             android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/button2"
+            android:background="@color/black"
             android:fontFamily="@font/pixel"
             android:textSize="20dp"
             android:text="Tetris"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
             android:id ="@+id/FaceMesh_btn"
@@ -68,11 +68,11 @@
             android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/button2"
+            android:background="@color/black"
             android:fontFamily="@font/pixel"
             android:textSize="20dp"
             android:text="Face Mesh"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
