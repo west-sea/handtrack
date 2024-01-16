@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     private SolutionGlSurfaceView<HandsResult> glSurfaceView;
 
     private static final int CAMERA_PERMISSION_CODE = 1001;
-    private static final String[] REQUIRED_PERMISSIONS = new String[] {
+    private static final String[] REQUIRED_PERMISSIONS = new String[]{
             Manifest.permission.INTERNET,
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
             requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
+
     //hand tracker 함수들
     public void onRockGestureDetected() {
         if (!isNextActivityLaunched) {
@@ -124,10 +125,14 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
     }
 
     @Override
-    public void onRockGesture() {performRotateAction();}
+    public void onRockGesture() {
+        performRotateAction();
+    }
 
     @Override
-    public void onScissorGesture() {performDownAction();}
+    public void onScissorGesture() {
+        performDownAction();
+    }
 
     private void performRightAction() {
         // Code to perform the right action
@@ -139,12 +144,12 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         dw.showfield(Draw.Left);
     }
 
-    private void performRotateAction(){
+    private void performRotateAction() {
 
         dw.showfield(Draw.rotate);
     }
 
-    private void performDownAction(){
+    private void performDownAction() {
         dw.showfield(Down);
         Log.d("Down", "Down");
     }
@@ -328,5 +333,18 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         }
     }
 
+    // 뒤로가기 누르면 음악이 멈춤!
+    @Override
+    public void onBackPressed() {
+        // Stop the music if it's playing
+        if (bgm != null && bgm.isPlaying()) {
+            bgm.stop();
+            // Optionally, you can also release the MediaPlayer resource
+            bgm.release();
+            bgm = null;
+        }
+        // Continue with the regular back button behavior
+        super.onBackPressed();
+    }
 }
 

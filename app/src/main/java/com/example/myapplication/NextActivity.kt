@@ -8,8 +8,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.GameRules.TetrisRuleActivity
 import com.example.myapplication.databinding.ActivityNextBinding
-import com.example.myapplication.MainActivity
 import com.google.mediapipe.solutioncore.CameraInput
 import com.google.mediapipe.solutioncore.SolutionGlSurfaceView
 import com.google.mediapipe.solutions.hands.Hands
@@ -157,7 +157,7 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     private fun goToNextActivity(){
-        val intent = Intent(this@NextActivity, InfoActivity::class.java)
+        val intent = Intent(this@NextActivity, TetrisRuleActivity::class.java)
         startActivity(intent)
     }
 
