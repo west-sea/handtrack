@@ -54,13 +54,18 @@ public class CustomBallView extends View {
 
     private void createBalls(int width, int height) {
         Random random = new Random();
-        int numberOfBalls = 10;
+        int minBalls = 5;   // 최소 공의 개수
+        int maxBalls = 30;  // 최대 공의 개수
+        int numberOfBalls = minBalls + random.nextInt(maxBalls - minBalls + 1); // 5에서 30 사이의 랜덤한 공의 개수
+        MyGlobals.getInstance().setBallnumber(numberOfBalls);
+
         for (int i = 0; i < numberOfBalls; i++) {
-            int radius = 40;
-            //int randomX = radius+400 + random.nextInt(width - 2 * radius - 400);
-            //int randomY = radius+300 + random.nextInt(height - 2 * radius - 300);
-            int randomX = radius+300 + random.nextInt(width - 2 * radius-300);
-            int randomY = radius+300 + random.nextInt(height - 2 * radius-300);
+            //반지름 랜덤
+            int minRadius = 10; // 최소 반지름
+            int maxRadius = 60; // 최대 반지름
+            int radius = minRadius + random.nextInt(maxRadius - minRadius + 1); // 랜덤 반지름
+            int randomX = radius + 100 + random.nextInt(width - 2 * radius - 200);
+            int randomY = radius + 100 + random.nextInt(height - 2 * radius - 200);
             int randomDx = random.nextInt(10) - 5;
             int randomDy = random.nextInt(10) - 5;
             int randomColor = Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));

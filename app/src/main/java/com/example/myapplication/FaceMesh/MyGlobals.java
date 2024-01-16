@@ -4,6 +4,8 @@ import android.util.Log;
 
 public class MyGlobals {
     private Integer score = 0;
+    private Integer ballnumber;
+    private Integer fold;
     private String nickname;
     private String school;
     private String major;
@@ -13,6 +15,14 @@ public class MyGlobals {
     private String mate;
     private String eval;
 
+    public Integer getFold() {
+        return fold;
+    }
+
+    public void setFold(Integer fold) {
+        this.fold = fold;
+    }
+
     public Integer getScore() {
         return score;
     }
@@ -20,6 +30,14 @@ public class MyGlobals {
     public void setScore(Integer score) {
         this.score = score;
         Log.d("MyGlobals", "Score become: " + score);
+    }
+
+    public Integer getBallnumber() {
+        return ballnumber;
+    }
+
+    public void setBallnumber(Integer ballnumber) {
+        this.ballnumber = ballnumber;
     }
 
     public String getNickname() {
