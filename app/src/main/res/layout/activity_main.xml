@@ -7,24 +7,6 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="76dp"
-        android:layout_height="28dp"
-        android:text="score:"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/nextDraw"
-        app:layout_constraintTop_toTopOf="@+id/Draw" />
-
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
         android:id="@+id/gameOverText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,27 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="187dp"
-        android:layout_marginEnd="97dp"
         android:text=""
-        app:layout_constraintEnd_toEndOf="@+id/Draw"
-        app:layout_constraintTop_toTopOf="@+id/Draw" />
-
-    <com.example.myapplication.nextDraw
-        android:id="@+id/nextDraw"
-        android:layout_width="81dp"
-        android:layout_height="76dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="@+id/hold"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <com.example.myapplication.Draw
-        android:id="@+id/Draw"
-        android:layout_width="282dp"
-        android:layout_height="424dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.614" />
 
     <TextView
         android:id="@+id/scoreLabel"
@@ -77,42 +45,80 @@
         app:layout_constraintStart_toStartOf="@+id/resetButton"
         app:layout_constraintTop_toBottomOf="@+id/resetButton" />
 
-    <com.example.myapplication.hold
-        android:id="@+id/hold"
-        android:layout_width="81dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toEndOf="@+id/Draw"
-        app:layout_constraintTop_toBottomOf="@+id/nextDraw" />
-
-    <TextView
+    <LinearLayout
+        android:id = "@+id/LinearLayoutTetirs"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEXT"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/hold"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/hold" />
+        android:padding="1dp"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOLD"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/nextDraw"
-        app:layout_constraintStart_toStartOf="@+id/nextDraw" />
+        <com.example.myapplication.Draw
+            android:id="@+id/Draw"
+            android:layout_width="282dp"
+            android:layout_height="424dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp">
 
-    <FrameLayout
-        android:id="@+id/preview_display_layout2"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/Draw"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871"></FrameLayout>
 
+        </com.example.myapplication.Draw>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="0dp" android:layout_height="5dp"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="score: "
+            android:textSize="20dp"
+            android:padding="5dp"/>
+
+            <View
+                android:layout_width="0dp" android:layout_height="5dp"/>
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEXT"
+                android:textSize="20dp"/>
+
+            <com.example.myapplication.nextDraw
+                android:id="@+id/nextDraw"
+                android:layout_width="80dp"
+                android:layout_height="75dp"/>
+
+            <View
+                android:layout_width="0dp" android:layout_height="10dp"/>
+
+            <FrameLayout
+                android:id="@+id/preview_display_layout2"
+                android:layout_width="80dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:id="@+id/textViewcommand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
