@@ -284,17 +284,20 @@ public class Draw extends View {
 
     public boolean canRotate(int dx, int dy, int[][] currentBlock){
         int[][] rotatedBlock = getRotatedBlock(currentBlock);
+
         for(int i = 0; i < blockLenght; i++){
             for(int j = 0; j < blockLenght; j++){
                 if(rotatedBlock[i][j] != 0){
-                    int nx = offsetx + j;
-                    int ny = offsety + i;
-                    if(nx<0 || nx >= xmax || ny<0 || ny >= ymax){
-                        Log.d("범위 밖", "범위 밖");
+                    int nx = offsetx + j + dx;
+                    int ny = offsety + i + dy;
+
+                    // Check if the new x and y coordinates are within the field boundaries
+                    if(nx < 0 || nx >= xmax || ny < 0 || ny >= ymax){
                         return false;
                     }
-                    if(field[nx][ny] != 0){
-                        Log.d("뭐지", "뭐지");
+
+                    // Check if the new position overlaps with existing blocks in the field
+                    if(field[ny][nx] != 0){
                         return false;
                     }
                 }
