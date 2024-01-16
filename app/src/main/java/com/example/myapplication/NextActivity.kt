@@ -31,6 +31,8 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     private val CAMERA_PERMISSION_CODE = 1001
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNextBinding.inflate(layoutInflater)

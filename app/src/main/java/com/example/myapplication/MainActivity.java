@@ -289,7 +289,6 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
                     //スコアの表示
                     TextView scoreText = findViewById(R.id.scoreText);
                     scoreText.setText(String.valueOf(score));
-
                     TextView gameOverText = findViewById(R.id.gameOverText);
 
                     //ゲームオーバーの時の処理

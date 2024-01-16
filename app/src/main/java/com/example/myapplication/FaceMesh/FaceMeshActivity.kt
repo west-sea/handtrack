@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +30,23 @@ class FaceMeshActivity : AppCompatActivity() {
     private lateinit var glSurfaceView: SolutionGlSurfaceView<FaceMeshResult>
     private lateinit var ballView: CustomBallView
 
+    //타이머 기능 추가
+    private var startTime = 0L
+    private var timerHandler = Handler(Looper.getMainLooper())
+    private var timerRunnable: Runnable = object : Runnable {
+        override fun run() {
+            val millis = System.currentTimeMillis() - startTime
+            val seconds = (millis / 1000).toInt()
+            val minutes = seconds / 60
+            val displayTime = String.format("%02d:%02d", minutes, seconds % 60)
+
+            // 업데이트된 시간을 화면에 표시
+            binding.time.text = displayTime
+
+            timerHandler.postDelayed(this, 500)
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +66,6 @@ class FaceMeshActivity : AppCompatActivity() {
 
         ballView.bringToFront()
 
-
-        Log.i(TAG, "Starting setup...")
         faceMesh = FaceMesh(
             this,
             FaceMeshOptions.builder()
@@ -57,31 +74,18 @@ class FaceMeshActivity : AppCompatActivity() {
                 .setRunOnGpu(true)
                 .build()
         )
-        Log.i(TAG, "FaceMesh initialized...")
-        faceMesh.setErrorListener { message, _ ->
-            Log.e(
-                TAG,
-                "Error MediaPipe Face Mesh -> $message"
-            )
-        }
-        Log.i(TAG, "FaceMesh initialized... -> Done")
 
-        Log.i(TAG, "Camera check  initializing...")
         cameraInput = CameraInput(this)
         cameraInput.setNewFrameListener {
             faceMesh.send(it)
         }
-        Log.i(TAG, "Camera check  initializing... -> Done")
 
         // Initializes a new Gl surface view with a user-defined FaceMeshResultGlRenderer.
-        Log.i(TAG, "GlSurfaceView initializing...")
         glSurfaceView = SolutionGlSurfaceView(
             this,
             faceMesh.glContext,
             faceMesh.glMajorVersion
         )
-        Log.i(TAG, "GlSurfaceView initializing... -> Done")
-        Log.i(TAG, "Setting up GlSurfaceView...")
         glSurfaceView.setSolutionResultRenderer(FaceMeshResultGlRenderer())
         glSurfaceView.setRenderInputImage(true)
         faceMesh.setResultListener {result ->
@@ -112,9 +116,6 @@ class FaceMeshActivity : AppCompatActivity() {
                 // 입 벌림 정도 계산
                 val mouthOpenness = Math.abs(upperLip.y - lowerLip.y)
 
-                // 로그로 입 벌림 정도 출력
-                Log.d(TAG, "Mouth Openness: $mouthOpenness")
-
                 // 입 벌림 정도가 0.05를 넘어가면 "MOUTH OPEN" 텍스트 설정
                 if (mouthOpenness > 0.05) {
                     runOnUiThread {
@@ -125,18 +126,24 @@ class FaceMeshActivity : AppCompatActivity() {
                         binding.openmouth.text = "" // 또는 다른 상태의 텍스트를 설정할 수 있습니다.
                     }
                 }
-                Log.d("score", "Score: "+MyGlobals.getInstance().score)
+                //Log.d("score", "Score: "+MyGlobals.getInstance().score)
                 //binding.score.text =MyGlobals.getInstance().score?.toString()
                 runOnUiThread {
                     binding.score.text = MyGlobals.getInstance().score?.toString() ?: "0"
                 }
-
+                if(MyGlobals.getInstance().score == MyGlobals.getInstance().getBallnumber()) {
+                    //게임 오버 코드 작성
+                    stopTimer() // 타이머 중지
+                    val finalTime = binding.time.text.toString() // 최종 시간 획득
+                    runOnUiThread {
+                        binding.openmouth.text = "GAME OVER\nTime: $finalTime" // 게임 오버 메시지와 함께 시간 표시
+                    }
+                }
             }
 
             glSurfaceView.setRenderData(result)
             glSurfaceView.requestRender()
         }
-        Log.i(TAG, "Setting up GlSurfaceView... -> Done")
 
         // The runnable to start camera after the gl surface view is attached.
         // For video input source, videoInput.start() will be called when the video uri is available.
@@ -153,6 +160,8 @@ class FaceMeshActivity : AppCompatActivity() {
         binding.frameLayout.addView(ballView)
 //
         ballView.bringToFront()
+        //타이머 시작
+        startTimer()
     }
 
     private fun startCamera() {
@@ -201,5 +210,14 @@ class FaceMeshActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         cameraInput.close()
+    }
+
+    private fun startTimer() {
+        startTime = System.currentTimeMillis()
+        timerHandler.postDelayed(timerRunnable, 0)
+    }
+
+    private fun stopTimer() {
+        timerHandler.removeCallbacks(timerRunnable)
     }
 }

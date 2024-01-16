@@ -4,16 +4,42 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class InfoActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
+    private View linearLayout;
+    private boolean isImage1 = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info); // 'info.xml' 레이아웃을 설정
+
+        //이미지 깜박이기
+        linearLayout = findViewById(R.id.info);
+
+        // 일정 시간마다 배경 이미지 변경
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isImage1) {
+                    linearLayout.setBackgroundResource(R.drawable.info4);
+                } else {
+                    linearLayout.setBackgroundResource(R.drawable.info3);
+                }
+                isImage1 = !isImage1;
+
+                // 반복 호출 (원하는 시간으로 변경 가능)
+                handler.postDelayed(this, 100);
+            }
+        }, 500);
 
         // 'countdown.mp3' BGM 재생
         mediaPlayer = MediaPlayer.create(this, R.raw.countdown);

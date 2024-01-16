@@ -50,11 +50,11 @@ public class Ball {
 
         // Collision with edges
         //if (x < radius+400 || x > screenWidth - radius-400) {
-        if (x < radius+300 || x > screenWidth - radius-300) {
+        if (x < radius + 100 || x > screenWidth - radius - 100) {
             dx = -dx;
         }
         //if (y < radius+300 || y > screenHeight - radius-300) {
-        if (y < radius+300 || y > screenHeight - radius-300) {
+        if (y < radius + 100 || y > screenHeight - radius - 100) {
             dy = -dy;
         }
 
