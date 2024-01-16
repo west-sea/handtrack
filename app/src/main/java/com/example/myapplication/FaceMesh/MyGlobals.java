@@ -6,6 +6,7 @@ public class MyGlobals {
     private Integer score = 0;
     private Integer ballnumber;
     private Integer fold;
+    private String time;
     private String nickname;
     private String school;
     private String major;
@@ -38,6 +39,13 @@ public class MyGlobals {
 
     public void setBallnumber(Integer ballnumber) {
         this.ballnumber = ballnumber;
+    }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getNickname() {

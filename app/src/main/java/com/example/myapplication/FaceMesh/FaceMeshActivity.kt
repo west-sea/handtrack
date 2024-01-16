@@ -1,6 +1,6 @@
 package com.example.myapplication.FaceMesh
 
-import android.content.ContentValues.TAG
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -118,7 +118,7 @@ class FaceMeshActivity : AppCompatActivity() {
 //                }
 
 
-                // 입 벌림 정도 계산
+                /*// 입 벌림 정도 계산
                 val mouthOpenness = Math.abs(upperLip.y - lowerLip.y)
 
                 // 입 벌림 정도가 0.05를 넘어가면 "MOUTH OPEN" 텍스트 설정
@@ -130,19 +130,24 @@ class FaceMeshActivity : AppCompatActivity() {
                     runOnUiThread {
                         binding.openmouth.text = "" // 또는 다른 상태의 텍스트를 설정할 수 있습니다.
                     }
-                }
+                }*/
                 Log.d("score", "Score: "+MyGlobals.getInstance().score)
                 //binding.score.text =MyGlobals.getInstance().score?.toString()
                 runOnUiThread {
-                    binding.score.text = MyGlobals.getInstance().score?.toString() ?: "0"
+                    var scoreString = "score: " + MyGlobals.getInstance().score?.toString() ?: "0"
+                    binding.score.text = scoreString
                 }
                 if(MyGlobals.getInstance().score == MyGlobals.getInstance().getBallnumber()) {
+
                     //게임 오버 코드 작성
                     stopTimer() // 타이머 중지
                     val finalTime = binding.time.text.toString() // 최종 시간 획득
+                    MyGlobals.getInstance().time = finalTime
                     runOnUiThread {
-                        binding.openmouth.text = "GAME OVER\nTime: $finalTime" // 게임 오버 메시지와 함께 시간 표시
+                        //binding.openmouth.text = "GAME OVER\nTime: $finalTime" // 게임 오버 메시지와 함께 시간 표시
                     }
+                    val popupIntent = Intent(this, popupActivity::class.java)
+                    startActivity(popupIntent)
                 }
 
             }
