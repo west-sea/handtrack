@@ -22,9 +22,16 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     //튜토리얼 상태 변수 추가
     private var isLeftGestureDetected = false
     private var isRightGestureDetected = false
-
+    private var isRockGestureDetected = false
     // 변수 선언
     private var isNextActivityLaunched = false
+    private var first = true
+
+    //튜토리얼 상태 횟수 변수
+    private var LeftGesture = 0
+    private var RightGesture = 0
+    private var RockGesture = 0
+
     private lateinit var binding: ActivityNextBinding
     private lateinit var hands : Hands
     private lateinit var cameraInput: CameraInput
@@ -65,7 +72,17 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     }
 
     override fun onRockGesture() {
-        if (isRightGestureDetected) { // Right 제스처가 먼저 감지되었는지 확인
+        if (isRightGestureDetected) {
+            isRightGestureDetected = false
+            runOnUiThread {
+                if(RightGesture != 3) {
+                    binding.gesture.text = "LEFT"
+                }
+            }
+            RockGesture += 1
+            isRockGestureDetected = true
+        }
+        if (RightGesture == 3) {
             if (!isNextActivityLaunched) {
                 isNextActivityLaunched = true
                 goToNextActivity()
@@ -75,21 +92,27 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
 
     override fun onRightGesture() {
         if (isLeftGestureDetected) { // Left 제스처가 먼저 감지되었는지 확인
+            isLeftGestureDetected = false
             runOnUiThread {
                 binding.gesture.text = "ROCK"
 
             }
             // Right 제스처가 감지되면, Rock 제스처를 기다리도록 설정
+            RightGesture += 1
             isRightGestureDetected = true
         }
-
     }
 
     override fun onLeftGesture() {
-        runOnUiThread {
-            binding.gesture.text = "RIGHT"
+        if(isRockGestureDetected || first) {
+            isRockGestureDetected = false
+            first = false
+            runOnUiThread {
+                binding.gesture.text = "RIGHT"
+            }
+            LeftGesture += 1
+            isLeftGestureDetected = true
         }
-        isLeftGestureDetected = true
     }
 
     override fun onScissorGesture() {

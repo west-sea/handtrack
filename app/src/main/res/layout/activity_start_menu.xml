@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainpage"
+    android:background="@drawable/mainpage2"
     tools:context=".StartMenu.StartMenuActivity">
 
     <!--    왜 버튼 색깔이 흰색이 아닌거지??-->
