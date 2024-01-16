@@ -28,7 +28,7 @@ public class blocks {
     static boolean firsttime = false;
 
 
-    //ブロックのランダム処理
+    //block randomization ???
     public static void randomNumber() {
         if (!firsttime) {
             for (int i = 0; i < 6; i++) {
@@ -44,7 +44,7 @@ public class blocks {
         }
     }
 
-    //ブロックの形の定義とブロックの抽選処理
+    // Block 종류 생성 - 7종류
     public void blocks(int number) {
         int tenmuber = 0;
         if (number == 0) {
@@ -123,7 +123,7 @@ public class blocks {
         }
     }
 
-    //操作ブロックの取得
+    // 시작 block
     public void setNowBlock() {
         blocks(0);
         for (int i = 0; i < blockLenght; i++) {
@@ -135,7 +135,7 @@ public class blocks {
         rotetanum = 0;
     }
 
-    //次のブロックの取得
+    // 다음 block
     public void setNextBlock() {
         blocks(1);
         for (int i = 0; i < blockLenght; i++) {
@@ -145,7 +145,7 @@ public class blocks {
         }
     }
 
-    //回転処理
+    //회전
     public void roteta() {
         switch (num) {
             case tBlock:

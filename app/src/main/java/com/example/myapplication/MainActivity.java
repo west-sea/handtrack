@@ -73,7 +73,9 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
 
     // 테트리스 컴포넌트 초기화
     private void initTetrisComponents() {
+        // Tetris 떨어지는 판
         dw = findViewById(R.id.Draw);
+        //
         dw.showfield(Draw.Stational);
 
         ms = new music(getApplicationContext());

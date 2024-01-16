@@ -4,120 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B7E482"
+    android:background="@drawable/mainpage"
     tools:context=".StartMenu.StartMenuActivity">
 
     <!--    왜 버튼 색깔이 흰색이 아닌거지??-->
 
+
     <TextView
-        android:id="@+id/Title"
+        android:id="@+id/SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jalnan"
         android:gravity="center"
-        android:text="KINETIC\nPLAYGROUND"
-        android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        android:textStyle="bold"
+        android:text=" "
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
+
+    <LinearLayout
+        android:id = "@+id/ButtonLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263" />
-
-    <LinearLayout
-        android:id="@+id/ButtonLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="195dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798">
+        app:layout_constraintVertical_bias="0.804">
 
         <Button
-            android:id="@+id/Tutorial_btn"
-            android:layout_width="310dp"
+            android:id ="@+id/Tutorial_btn"
+            android:layout_width="300dp"
             android:layout_height="55dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button2"
-            android:fontFamily="@font/jalnan"
+            android:fontFamily="@font/pixel"
+            android:textSize="20dp"
             android:text="Tutorial"
             android:textColor="@color/black" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <Button
+            android:id ="@+id/Tetris_btn"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button2"
+            android:fontFamily="@font/pixel"
+            android:textSize="20dp"
+            android:text="Tetris"
+            android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/Tetris_btn"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button2"
-                android:fontFamily="@font/jalnan"
-                android:text="Tetris"
-                android:textColor="@color/black" />
-
-            <View
-                android:layout_width="5dp"
-                android:layout_height="0dp" />
-
-            <Button
-                android:id="@+id/Tetris_HTP_btn"
-                android:layout_width="50dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button2"
-                android:fontFamily="@font/jalnan"
-                android:text="HTP"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/FaceMesh_btn"
-                android:layout_width="250dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button2"
-                android:fontFamily="@font/jalnan"
-                android:text="Face Mesh"
-                android:textColor="@color/black" />
-
-            <View
-                android:layout_width="5dp"
-                android:layout_height="0dp" />
-
-            <Button
-                android:id="@+id/FaceMesh_HTP_btn"
-                android:layout_width="50dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button2"
-                android:fontFamily="@font/jalnan"
-                android:text="HTP"
-                android:textColor="@color/black" />
-
-        </LinearLayout>
-        </LinearLayout>
+        <Button
+            android:id ="@+id/FaceMesh_btn"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button2"
+            android:fontFamily="@font/pixel"
+            android:textSize="20dp"
+            android:text="Face Mesh"
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
