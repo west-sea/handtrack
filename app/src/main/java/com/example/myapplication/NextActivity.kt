@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.GameRules.TetrisRuleActivity
@@ -43,10 +45,23 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
             setupStreamingModePipeline()
             glSurfaceView.post { startCamera() }
             glSurfaceView.visibility = View.VISIBLE
+
         } else {
             // Request camera permission if not granted
             requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
         }
+        val topImageView: ImageView = findViewById(R.id.tutorial)
+        topImageView.setImageResource(R.drawable.tutorialback)
+        topImageView.visibility = View.VISIBLE
+        topImageView.bringToFront()
+
+        val textView: TextView = findViewById(R.id.gesture)
+        textView.visibility = View.VISIBLE
+        textView.bringToFront()
+
+        val textView2: TextView = findViewById(R.id.textview_tutorial)
+        textView2.visibility = View.VISIBLE
+        textView2.bringToFront()
     }
 
     override fun onRockGesture() {
@@ -62,6 +77,7 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
         if (isLeftGestureDetected) { // Left 제스처가 먼저 감지되었는지 확인
             runOnUiThread {
                 binding.gesture.text = "ROCK"
+
             }
             // Right 제스처가 감지되면, Rock 제스처를 기다리도록 설정
             isRightGestureDetected = true
@@ -144,6 +160,8 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
             glSurfaceView.visibility = View.VISIBLE
             requestLayout()
         }
+
+
     }
 
     private fun startCamera() {
