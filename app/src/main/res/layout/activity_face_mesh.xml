@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.google.mediapipe.examples.facemesh.FaceMeshActivity">
 
+    <ImageView
+        android:id="@+id/topImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/faceback"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/frame_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="0dp"

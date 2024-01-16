@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -91,6 +92,7 @@ class FaceMeshActivity : AppCompatActivity() {
         )
         glSurfaceView.setSolutionResultRenderer(FaceMeshResultGlRenderer())
         glSurfaceView.setRenderInputImage(true)
+
         faceMesh.setResultListener {result ->
 
             //입 벌림 인식 코드
@@ -165,6 +167,12 @@ class FaceMeshActivity : AppCompatActivity() {
         binding.frameLayout.addView(ballView)
 //
         ballView.bringToFront()
+
+        val topImageView: ImageView = findViewById(R.id.topImageView)
+        topImageView.setImageResource(R.drawable.faceback)
+        topImageView.visibility = View.VISIBLE
+        topImageView.bringToFront()
+
         //타이머 시작
         startTimer()
     }
