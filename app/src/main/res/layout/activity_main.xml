@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tetris_background_two"
     tools:context=".MainActivity">
 
     <TextView
@@ -46,12 +47,14 @@
         app:layout_constraintTop_toBottomOf="@+id/resetButton" />
 
     <LinearLayout
-        android:id = "@+id/LinearLayoutTetirs"
-        android:orientation="horizontal"
+        android:id="@+id/LinearLayoutTetirs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="1dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="36dp">
 
         <com.example.myapplication.Draw
             android:id="@+id/Draw"
@@ -66,62 +69,70 @@
         </com.example.myapplication.Draw>
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="0dp" android:layout_height="5dp"/>
-
-        <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="score: "
-            android:textSize="20dp"
-            android:padding="5dp"/>
+            android:orientation="vertical">
 
             <View
-                android:layout_width="0dp" android:layout_height="5dp"/>
+                android:layout_width="0dp"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="  score"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="5dp" />
 
             <TextView
                 android:id="@+id/scoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NEXT"
-                android:textSize="20dp"/>
+                android:textColor="@color/white"
+                android:text="   NEXT"
+                android:textSize="20dp" />
 
             <com.example.myapplication.nextDraw
                 android:id="@+id/nextDraw"
                 android:layout_width="80dp"
-                android:layout_height="75dp"/>
+                android:layout_height="75dp" />
 
             <View
-                android:layout_width="0dp" android:layout_height="10dp"/>
+                android:layout_width="0dp"
+                android:layout_height="10dp" />
 
             <FrameLayout
                 android:id="@+id/preview_display_layout2"
                 android:layout_width="80dp"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp" />
 
             <TextView
                 android:id="@+id/textViewcommand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/commandImage"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src = "@drawable/baseline_question_mark_24"/>
+                android:src="@drawable/baseline_question_mark_24" />
 
         </LinearLayout>
 

@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                commandText.setText("Right");
+                commandText.setText("   Right");
                 commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_right_24);
             }
         });
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                commandText.setText("Left");
+                commandText.setText("   Left");
                 commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_left_24);
             }
         });
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                commandText.setText("Rotate");
+                commandText.setText("   Rotate");
                 commandImage.setImageResource(R.drawable.baseline_rotate_right_24);
             }
         });
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                commandText.setText("Down");
+                commandText.setText("   Down");
                 commandImage.setImageResource(R.drawable.baseline_keyboard_double_arrow_down_24);
             }
         });
