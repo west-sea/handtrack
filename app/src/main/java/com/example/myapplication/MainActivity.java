@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myapplication.StartMenu.StartMenuActivity;
 import com.google.mediapipe.solutioncore.CameraInput;
 import com.google.mediapipe.solutioncore.SolutionGlSurfaceView;
 import com.google.mediapipe.solutions.hands.Hands;
@@ -30,6 +31,8 @@ import com.google.mediapipe.solutions.hands.HandsResult;
 
 public class MainActivity extends AppCompatActivity implements GestureActionListener {
 
+    //
+    private boolean isGameOverActivityLaunched = false;
     //
     private TextView commandText;
     private ImageView commandImage;
@@ -242,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
 
     }
 
-
     private void startCamera() {
         cameraInput.start(
                 this,
@@ -252,51 +254,11 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
                 glSurfaceView.getHeight()
         );
     }
-
     private void goToNextActivity() {
         Intent intent = new Intent(this, NextActivity.class);
         startActivity(intent);
     }
 
-
-    //移動機能定義メソッド
-    void setButtonFunction(Button button, final int motion) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dw.showfield(motion);
-            }
-        });
-    }
-
-    //ホールドボタンの機能定義メソッド
-    void setHoldButtonFunction(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holdButtonclick = true;
-            }
-        });
-    }
-
-    //高速落下ボタンの機能定義メソッド
-    void setDownButtonFunction(Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                while (true) {
-                    Draw.offsety++;
-                    if (dw.canMove(0, 1, blocks.nowBlock) == false) {
-                        dw.blockFixt();
-                        dw.checkfield();
-                        break;
-                    }
-                }
-            }
-        });
-    }
-
-    //リセットボタンの機能定義メソッド
     void setresetButton(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
         });
     }
 
-    //一定間隔の時間で処理を行うメソッド
     void timerset() {
         //resetButton = findViewById(R.id.resetButton);
         if (startFlag) {
@@ -319,28 +280,20 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
                 @Override
                 public void run() {
 
-                    //一定周期の落下
                     dw.showfield(Down);
                     handler.postDelayed(this, 1000);
 
-                    //スコアの表示
                     TextView scoreText = findViewById(R.id.scoreText);
                     scoreText.setText(String.valueOf(score));
-
                     TextView gameOverText = findViewById(R.id.gameOverText);
 
-                    //ゲームオーバーの時の処理
                     if (dw.gameOverFlag) {
-                        //リセットボタンの機能定義、ボタンの表示
                         setresetButton(resetButton);
                         resetButton.setVisibility(View.VISIBLE);
-                        //テキストセット
                         gameOverText.setText(R.string.gameOver);
                         resetButton.setText("Reset");
-                        //音楽停止と再生
                         bgm.stop();
                         gameover.start();
-                        //ハイスコア表示、更新処理
                         if (score >= highScore) {
                             highScoreLabel.setText("High Score :" + score);
                             SharedPreferences.Editor editor = sp.edit();
@@ -350,18 +303,27 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
                             highScoreLabel.setText("High Socre :" + highScore);
                             scoreLabel.setText("Score :" + score);
                         }
-                    } else {
-                        //ボタン,テキストの非表示
-                        gameOverText.setText("");
-                        resetButton.setVisibility(View.INVISIBLE);
-                        highScoreLabel.setText("");
-                        scoreLabel.setText("");
+
+                        if(!isGameOverActivityLaunched) {
+                            isGameOverActivityLaunched = true;
+                            Intent intent = new Intent(MainActivity.this, TetrisGameOverActivity.class);
+                            intent.putExtra("tossScore", String.valueOf(score));
+                            if (score >= highScore) {
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt("High_Score", score);
+                                editor.apply();
+                                intent.putExtra("tossBestScore", String.valueOf(score));
+                            } else {
+                                intent.putExtra("tossBestScore", String.valueOf(highScore));
+                            }
+                            dw.reset();
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 }
             };
             handler.post(r);
-        } else {
-            resetButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -375,6 +337,12 @@ public class MainActivity extends AppCompatActivity implements GestureActionList
             bgm.release();
             bgm = null;
         }
+        // Create an intent to start StartMenuActivity
+        Intent intent = new Intent(this, StartMenuActivity.class);
+        startActivity(intent);
+
+        // Close the current activity
+        finish();
         // Continue with the regular back button behavior
         super.onBackPressed();
     }

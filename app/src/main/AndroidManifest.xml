@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -19,13 +19,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".TetrisGameOverActivity"
+            android:exported="false" />
         <activity
             android:name=".GameRules.FacemeshRuleActivity"
             android:exported="false" />
         <activity
             android:name=".StartMenu.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,22 +40,19 @@
             android:exported="false" />
         <activity
             android:name=".NextActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".GameRules.TetrisRuleActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".StartMenu.StartMenuActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
-        </activity>
-        <activity android:name=".FaceMesh.popupActivity"
-            android:theme="@style/DialogTheme"/>
+            android:exported="true"></activity>
+        <activity
+            android:name=".FaceMesh.popupActivity"
+            android:theme="@style/DialogTheme" />
     </application>
 
 </manifest>

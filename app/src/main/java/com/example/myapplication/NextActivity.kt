@@ -200,6 +200,7 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
     private fun goToNextActivity(){
         val intent = Intent(this@NextActivity, TetrisRuleActivity::class.java)
         startActivity(intent)
+        finish();
     }
 
 }
