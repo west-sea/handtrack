@@ -19,6 +19,10 @@ import com.google.mediapipe.solutions.hands.HandsOptions
 import com.google.mediapipe.solutions.hands.HandsResult
 
 class NextActivity : AppCompatActivity(), GestureActionListener {
+
+    // Trial 횟수
+    private var numOfTrial = 3
+
     //튜토리얼 상태 변수 추가
     private var isLeftGestureDetected = false
     private var isRightGestureDetected = false
@@ -77,10 +81,12 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
             runOnUiThread {
                 if(RightGesture != 3) {
                     binding.gesture.text = "LEFT"
+                    binding.textviewTutorial.text = "Trial Left: $numOfTrial"
                 }
             }
             RockGesture += 1
             isRockGestureDetected = true
+            numOfTrial -= 1
         }
         if (RightGesture == 3) {
             if (!isNextActivityLaunched) {
@@ -109,6 +115,7 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
             first = false
             runOnUiThread {
                 binding.gesture.text = "RIGHT"
+                binding.textviewTutorial.text = "Trial Left: $numOfTrial"
             }
             LeftGesture += 1
             isLeftGestureDetected = true
@@ -183,8 +190,6 @@ class NextActivity : AppCompatActivity(), GestureActionListener {
             glSurfaceView.visibility = View.VISIBLE
             requestLayout()
         }
-
-
     }
 
     private fun startCamera() {
