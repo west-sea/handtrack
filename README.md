@@ -64,7 +64,7 @@
 >     - RETRY 버튼 누르면, 새로 게임이 시작
 >     
 ### 4️⃣ FaceMesh
-<img src="https://github.com/west-sea/handtrack/assets/128574611/5e613f19-119b-47e1-934c-13a27b250427" width="300px" height="600px"/> <img src="https://github.com/west-sea/handtrack/assets/128574611/4c3aa1e9-df5b-4096-bdea-c8a8706803ed" width="300px" height="600px"/><br />
+<img src="https://github.com/west-sea/handtrack/assets/128574611/5e613f19-119b-47e1-934c-13a27b250427" width="300px" height="600px"/> <br />
 > - Rule
 >     - 원안에 있는 돌아다니는 공들을 모두 먹으면 성공
 >     - 공들은 크기, 속도, 방향 모두 무작위
