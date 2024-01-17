@@ -23,7 +23,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
 
     // 시간 인식 조절
     private var lastExecutionTime = 0L
-    private val throttleInterval = 500L
+    private val throttleInterval = 50L
 
     // 변수 설정
     private var program = 0
@@ -38,6 +38,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
         GLES20.glCompileShader(shader)
         return shader
     }
+    //
 
     //HandLandmarks: 두 점 사이 거리 구하기
     fun distance(p1: LandmarkProto.NormalizedLandmark, p2: LandmarkProto.NormalizedLandmark): Float {
