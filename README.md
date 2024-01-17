@@ -29,40 +29,27 @@
 ---
 
 ### 1️⃣ Loading to StartMenu
-<img src="https://github.com/west-sea/handtrack/assets/128574611/a7f36859-4471-4d7f-be36-f129ebfab296" width="300px" height="600px"/> <br />
+<img src="https://github.com/west-sea/handtrack/assets/128574611/5b02725d-702d-4dc3-a1a3-60e65a8b9a9c" width="300px" height="600px"/> <br />
 > - Lottie Animation을 통한 splash animation
 > - Tutorial, Tetris, FaceMesh 게임을 선택할 수 있는 StartMenu 창
-> 
-> 
+
+
 ### 2️⃣ Tutorial
-> 
-
-https://github.com/west-sea/handtrack/assets/128574611/b3f74fb6-faaf-4449-b5fc-08099c3921bf
-
-
+<img src="https://github.com/west-sea/handtrack/assets/128574611/2618c307-5936-452e-89ad-0656905902e1" width="300px" height="600px"/> <br />
 > - 사용자가 게임에 대한 친숙도를 높이기 위한 창
 > - 화면에 제시된, 방향을 손으로 따라하게 된다면 다음 동작이 제시됨
 > - 각 행동을 3번씩 따라하게 된다면, tetris 게임에 대한 설명을 animation으로 보여주고 tetris 게임으로 자동으로 넘어감 (tts 재생됨)
 > 
 > 
-### 3️⃣ Tetris
-> 
-
-https://github.com/west-sea/handtrack/assets/128574611/cfe77337-62ff-45aa-8727-7bb99ed4e856
-
-
+### 3️⃣ Tetris 
+<img src="https://github.com/west-sea/handtrack/assets/128574611/900da673-5bd0-43e6-9b07-1caa78afa0df" width="300px" height="600px"/> <br />
 > - Rule: tetris 기존 게임과 동일함
 > - Command[손 모양]
->     
+
 >     1) 실시간으로 촬영된 모습이 FrameLayout에 표시됨
 >     
 >     2) 인식된 손 모양에 따른 글자와 그림이 실시간으로 표시됨 
 >     
->     - 화면
->         
->         
->        
->         
 >     - 주먹: 블록이 돌아감
 >     - 가위: 블록이 빨리 내려감
 >     - 왼쪽: 블록이 왼쪽으로 이동
@@ -76,17 +63,8 @@ https://github.com/west-sea/handtrack/assets/128574611/cfe77337-62ff-45aa-8727-7
 >     - 최고 기록 점수
 >     - RETRY 버튼 누르면, 새로 게임이 시작
 >     
-
 ### 4️⃣ FaceMesh
-> 
-
-https://github.com/west-sea/handtrack/assets/128574611/0db57819-fa8e-4867-8d6b-fc3c330217fb
-
-
-
-https://github.com/west-sea/handtrack/assets/128574611/ef0ba728-8b9c-48c7-aa39-22c76eac2b4a
-
-
+<img src="https://github.com/west-sea/handtrack/assets/128574611/5e613f19-119b-47e1-934c-13a27b250427" width="300px" height="600px"/> <img src="https://github.com/west-sea/handtrack/assets/128574611/4c3aa1e9-df5b-4096-bdea-c8a8706803ed" width="300px" height="600px"/><br />
 > - Rule
 >     - 원안에 있는 돌아다니는 공들을 모두 먹으면 성공
 >     - 공들은 크기, 속도, 방향 모두 무작위
