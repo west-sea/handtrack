@@ -57,17 +57,28 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="36dp">
 
-        <com.example.myapplication.Draw
-            android:id="@+id/Draw"
-            android:layout_width="282dp"
-            android:layout_height="424dp"
-            android:layout_marginStart="15dp"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp">
+            app:layout_constraintTop_toTopOf="@+id/LinearLayoutTetirs"
+            app:layout_constraintStart_toStartOf="@+id/LinearLayoutTetirs"
+            app:layout_constraintEnd_toEndOf="@+id/LinearLayoutTetirs">
 
+            <com.example.myapplication.Draw
+                android:id="@+id/Draw"
+                android:layout_width="282dp"
+                android:layout_height="424dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp" />
 
-        </com.example.myapplication.Draw>
+            <ImageView
+                android:src="@drawable/frame3"
+                android:layout_width="320dp"
+                android:layout_height="468dp" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
