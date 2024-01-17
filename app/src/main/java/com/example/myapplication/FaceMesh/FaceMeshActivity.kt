@@ -134,7 +134,9 @@ class FaceMeshActivity : AppCompatActivity() {
                 Log.d("score", "Score: "+MyGlobals.getInstance().score)
                 //binding.score.text =MyGlobals.getInstance().score?.toString()
                 runOnUiThread {
-                    var scoreString = "score: " + MyGlobals.getInstance().score?.toString() ?: "0"
+                    var leftball = MyGlobals.getInstance().ballnumber - MyGlobals.getInstance().score
+                    var scoreString = ("left ball: " + leftball?.toString()) ?: "0"
+                    Log.v("scorestring", scoreString)
                     binding.score.text = scoreString
                 }
                 if(MyGlobals.getInstance().score == MyGlobals.getInstance().getBallnumber()) {
@@ -142,7 +144,7 @@ class FaceMeshActivity : AppCompatActivity() {
                     //게임 오버 코드 작성
                     stopTimer() // 타이머 중지
                     val finalTime = binding.time.text.toString() // 최종 시간 획득
-                    MyGlobals.getInstance().time = finalTime
+                    MyGlobals.getInstance().time = "you $finalTime"
                     runOnUiThread {
                         //binding.openmouth.text = "GAME OVER\nTime: $finalTime" // 게임 오버 메시지와 함께 시간 표시
                     }
@@ -177,6 +179,8 @@ class FaceMeshActivity : AppCompatActivity() {
         topImageView.setImageResource(R.drawable.faceback2)
         topImageView.visibility = View.VISIBLE
         topImageView.bringToFront()
+        binding.time.bringToFront()
+        binding.score.bringToFront()
 
         //타이머 시작
         startTimer()
