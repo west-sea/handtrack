@@ -23,7 +23,7 @@ class HandsResultGlRenderer(private val gestureActionListener: GestureActionList
 
     // 시간 인식 조절
     private var lastExecutionTime = 0L
-    private val throttleInterval = 50L
+    private val throttleInterval = 700L
 
     // 변수 설정
     private var program = 0
